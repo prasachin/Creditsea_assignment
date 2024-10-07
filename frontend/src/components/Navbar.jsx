@@ -14,40 +14,43 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <h2>CREDIT APP</h2>
+        <h2 style={{ fontWeight: "bold" }}>CREDIT APP</h2>
       </div>
       <ul className="navbar-menu">
-        <li>
+        <li style={{ fontWeight: "bold" }}>
           <Link to="/home">
-            <i className="bi bi-house"></i> Home
+            <i className="bi bi-house" style={{ color: "green" }}></i> Home
           </Link>
         </li>
-        <li>
+        <li style={{ fontWeight: "bold" }}>
           <Link to="/payments">
-            <i className="bi bi-cash-stack"></i> Payments
+            <i className="bi bi-cash-stack" style={{ color: "green" }}></i>{" "}
+            Payments
           </Link>
         </li>
-        <li>
+        <li style={{ fontWeight: "bold" }}>
           <Link to="/budget">
-            <i className="bi bi-journal-text"></i> Budget
+            <i className="bi bi-journal-text" style={{ color: "green" }}></i>{" "}
+            Budget
           </Link>
         </li>
-        <li>
+        <li style={{ fontWeight: "bold" }}>
           <Link to="/card">
-            <i className="bi bi-credit-card"></i> Card
+            <i className="bi bi-credit-card" style={{ color: "green" }}></i>{" "}
+            Card
           </Link>
         </li>
       </ul>
       <ul className="navbar-icons">
         <li>
           <Link to="/notifications">
-            <i className="bi bi-bell"></i>
+            <i className="bi bi-bell" style={{ color: "green" }}></i>
             <span className="notification-badge">4</span>
           </Link>
         </li>
         <li>
           <Link to="/messages">
-            <i className="bi bi-chat-dots"></i>
+            <i className="bi bi-chat-dots" style={{ color: "green" }}></i>
           </Link>
         </li>
         <li>
@@ -56,26 +59,30 @@ const Navbar = () => {
               variant="link"
               id="user-dropdown-offcanvas"
               className="w-100 text-left"
+              style={{ textDecoration: "none", fontWeight:"bold" , color:"green"}}
             >
               <i
                 className="bi bi-person"
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: "none", color: "green" }}
               ></i>{" "}
               User
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item
                 onClick={() => handleDropdownSelect("/user-dashboard")}
+                style={{ textDecoration: "none", fontWeight:"bold" }}
               >
                 User
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={() => handleDropdownSelect("/verifier-dashboard")}
+                style={{ textDecoration: "none", fontWeight:"bold" }}
               >
                 Verifier
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={() => handleDropdownSelect("/admin-dashboard")}
+                style={{ textDecoration: "none", fontWeight:"bold" }}
               >
                 Admins
               </Dropdown.Item>

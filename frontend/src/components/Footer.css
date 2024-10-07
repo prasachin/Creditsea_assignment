@@ -5,10 +5,11 @@
   position: fixed;
   width: 100%;
   bottom: 0;
-  font-size: 20px;
-  color: #333;
+  color: green;
 }
 
 .footer p {
+    font-size: 20px;
   margin: 0;
+  font-weight: bold;
 }
