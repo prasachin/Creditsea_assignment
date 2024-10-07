@@ -1,0 +1,46 @@
+.loan-form {
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loan-form .modal-header {
+  background-color: green;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 15px;
+}
+
+.loan-form .modal-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.loan-form .close {
+  color: white;
+}
+
+.loan-form .form-group label {
+  font-weight: bold;
+}
+
+.loan-form .form-control {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.loan-form button[type="submit"] {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: green;
+  border-color: #007bff;
+}
+
+.loan-form button[type="submit"]:hover {
+  background-color: #0056b3;
+}

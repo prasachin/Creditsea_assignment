@@ -1,0 +1,56 @@
+.admin-dashboard {
+  padding: 20px;
+}
+
+.dashboard-statistics {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.dashboard-statistics span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%;
+  background-color: #f1f1f1;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.statistic {
+  width: 20%;
+  background-color: #e1e1e1;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.recent-loans {
+  margin-top: 30px;
+}
+
+.recent-loans table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-loans th,
+.recent-loans td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.recent-loans th {
+  background-color: #f4f4f4;
+}
+
+.recent-loans td img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
