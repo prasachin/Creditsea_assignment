@@ -22,6 +22,20 @@ const Admin = () => {
     fetchLoans();
   }, []);
 
+  const fetchLoans = async () => {
+    try {
+      const loanResponse = await axios.get(
+        "http://localhost:3003/api/applications"
+      );
+      const fetchedLoans = loanResponse.data;
+      setLoans(fetchedLoans);
+      const fetchedUsers = await fetchUsers();
+      updateStatistics(fetchedLoans, fetchedUsers);
+    } catch (error) {
+      console.error("Error fetching loans:", error);
+    }
+  };
+
   const fetchUsers = async () => {
     try {
       const response = await axios.get("http://localhost:3003/api/users");
@@ -32,22 +46,7 @@ const Admin = () => {
     }
   };
 
-  const fetchLoans = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:3003/api/applications"
-      );
-      const fetchedLoans = response.data;
-      setLoans(fetchedLoans);
-
-      await fetchUsers();
-      updateStatistics(fetchedLoans);
-    } catch (error) {
-      console.error("Error fetching loans:", error);
-    }
-  };
-
-  const updateStatistics = (loans) => {
+  const updateStatistics = (loans, users) => {
     const activeUsers = users.length;
     const borrowers = loans.filter((loan) => loan.status !== "pending").length;
     const cashDisbursed = loans.reduce(
