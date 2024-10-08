@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEllipsisV } from "react-icons/fa";
+import { Dropdown } from "react-bootstrap";
 import "./admin.css";
 
 const Admin = () => {
   const [loans, setLoans] = useState([]);
-  const [selectedLoan, setSelectedLoan] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false);
   const [users, setUsers] = useState([]);
   const [statistics, setStatistics] = useState({
     activeUsers: 0,
@@ -41,16 +40,14 @@ const Admin = () => {
       const fetchedLoans = response.data;
       setLoans(fetchedLoans);
 
-      const fetchedUsers = await fetchUsers();
-      updateStatistics(fetchedLoans, fetchedUsers);
+      await fetchUsers();
+      updateStatistics(fetchedLoans);
     } catch (error) {
       console.error("Error fetching loans:", error);
     }
   };
 
-  const updateStatistics = (loans, users) => {
-    if (!loans || !users) return;
-
+  const updateStatistics = (loans) => {
     const activeUsers = users.length;
     const borrowers = loans.filter((loan) => loan.status !== "pending").length;
     const cashDisbursed = loans.reduce(
@@ -87,16 +84,10 @@ const Admin = () => {
           loan._id === loanId ? { ...loan, status: newStatus } : loan
         )
       );
-      setShowDropdown(false);
       fetchLoans();
     } catch (error) {
       console.error("Error updating loan status:", error);
     }
-  };
-
-  const toggleDropdown = (loanId) => {
-    setSelectedLoan(loanId);
-    setShowDropdown((prevState) => !prevState);
   };
 
   return (
@@ -167,7 +158,7 @@ const Admin = () => {
                   </td>
                   <td>{loan.fullName}</td>
                   <td>{new Date(loan.createdAt).toLocaleDateString()}</td>
-                  <td>
+                  <td className="text-right">
                     <span
                       className={`badge ${
                         loan.status === "Approved"
@@ -179,40 +170,43 @@ const Admin = () => {
                     >
                       {loan.status}
                     </span>
-                    <span
-                      className="dropdown-icon"
-                      onClick={() => toggleDropdown(loan._id)}
-                    >
-                      <FaEllipsisV />
-                    </span>
-                    {showDropdown && selectedLoan === loan._id && (
-                      <div className="dropdown-menu">
-                        <button
-                          className="dropdown-item"
+                    <Dropdown align="end">
+                      <Dropdown.Toggle
+                        variant="link"
+                        id="user-dropdown-offcanvas"
+                        className="w-100 text-left"
+                        style={{
+                          textDecoration: "none",
+                          fontWeight: "bold",
+                          color: "green",
+                        }}
+                      >
+                        <FaEllipsisV />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item
                           onClick={() =>
                             handleStatusChange(loan._id, "Approved")
                           }
                         >
                           Approve
-                        </button>
-                        <button
-                          className="dropdown-item"
+                        </Dropdown.Item>
+                        <Dropdown.Item
                           onClick={() =>
                             handleStatusChange(loan._id, "Rejected")
                           }
                         >
                           Reject
-                        </button>
-                        <button
-                          className="dropdown-item"
+                        </Dropdown.Item>
+                        <Dropdown.Item
                           onClick={() =>
                             handleStatusChange(loan._id, "Pending")
                           }
                         >
-                          Pending
-                        </button>
-                      </div>
-                    )}
+                          Set to Pending
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </td>
                 </tr>
               ))

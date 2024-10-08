@@ -8,7 +8,7 @@ const secret = "bearer";
 loginRouter.post("/login", async (request, response) => {
   try {
     const { email, password } = request.body;
-    console.log(request.body);
+    // console.log(request.body);
     const user = await CreditAppUser.findOne({ email });
     // console.log(user);
     const passwordCorrect =
@@ -22,9 +22,11 @@ loginRouter.post("/login", async (request, response) => {
     }
 
     const userForToken = {
+      userId: user._id,
       email: user.email,
       name: user.name,
     };
+    console.log(userForToken);
     // console.log(secret);
     const token = jwt.sign(userForToken, secret);
     // console.log(token);

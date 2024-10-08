@@ -3,9 +3,13 @@ import Loanform from "./Loanform";
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import { FaEllipsisV } from "react-icons/fa";
+import Deposit from "./depositform";
+import Transactions from "./Transactions";
 
 const User = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [showModal1, setShowModal1] = useState(false);
   const [loans, setLoans] = useState([]);
   const [filteredLoans, setFilteredLoans] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,9 +33,21 @@ const User = () => {
   const handleLoan = () => {
     setShowModal(true);
   };
+  const handledeposit = () => {
+    setShowModal1(true);
+  };
+  const handledtransaction = () => {
+    setShowModal2(true);
+  };
 
   const closeModal = () => {
     setShowModal(false);
+  };
+  const closeModal1 = () => {
+    setShowModal1(false);
+  };
+  const closeModal2 = () => {
+    setShowModal2(false);
   };
 
   const handleSearch = (e) => {
@@ -70,8 +86,16 @@ const User = () => {
               >
                 Borrow Cash
               </button>
-              <button className="btn btn-outline-secondary">Transact</button>
-              <button className="btn btn-outline-secondary">
+              <button
+                className="btn btn-outline-secondary"
+                onClick={handledtransaction}
+              >
+                Transactions
+              </button>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={handledeposit}
+              >
                 Deposit Cash
               </button>
             </div>
@@ -156,6 +180,38 @@ const User = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModal1} onHide={closeModal1} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Deposit Cash</Modal.Title>
+        </Modal.Header>
+        <Modal.Body
+          style={{ maxHeight: "calc(100vh - 210px)", overflowY: "auto" }}
+        >
+          <Deposit />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModal1}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModal2} onHide={closeModal2} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Transaction History For You !</Modal.Title>
+        </Modal.Header>
+        <Modal.Body
+          style={{ maxHeight: "calc(100vh - 210px)", overflowY: "auto" }}
+        >
+          <Transactions />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={closeModal2}>
             Close
           </Button>
         </Modal.Footer>

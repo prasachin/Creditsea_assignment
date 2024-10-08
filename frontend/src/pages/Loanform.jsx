@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Loanform.css";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const Loanform = () => {
+  const [userId, setUserId] = useState(null);
   const [formData, setFormData] = useState({
     fullName: "",
     loanAmount: "",
@@ -10,7 +12,17 @@ const Loanform = () => {
     employmentStatus: "",
     reasonForLoan: "",
     employmentAddress: "",
+    userId: null,
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUserId(decodedToken.userId);
+      //   console.log(decodedToken);
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,10 +35,20 @@ const Loanform = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
 
+    if (!userId) {
+      alert("You must be logged in to apply for a loan.");
+      return;
+    }
+
+    const applicationData = {
+      ...formData,
+      userId,
+    };
+
     try {
       const response = await axios.post(
         "http://localhost:3003/api/applications/apply",
-        formData,
+        applicationData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -80,6 +102,7 @@ const Loanform = () => {
                   value={formData.fullName}
                   onChange={handleInputChange}
                   placeholder="Full name as it appears on bank account"
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -91,6 +114,7 @@ const Loanform = () => {
                   value={formData.loanAmount}
                   onChange={handleInputChange}
                   placeholder="How much do you need?"
+                  required
                 />
               </div>
             </div>
@@ -104,6 +128,7 @@ const Loanform = () => {
                   value={formData.loanTenure}
                   onChange={handleInputChange}
                   placeholder="Loan tenure (in months)"
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -115,6 +140,7 @@ const Loanform = () => {
                   value={formData.employmentStatus}
                   onChange={handleInputChange}
                   placeholder="Employment status"
+                  required
                 />
               </div>
             </div>
@@ -128,6 +154,7 @@ const Loanform = () => {
                   value={formData.reasonForLoan}
                   onChange={handleInputChange}
                   placeholder="Reason for loan"
+                  required
                 />
               </div>
               <div className="form-group col-md-6">
@@ -139,6 +166,7 @@ const Loanform = () => {
                   value={formData.employmentAddress}
                   onChange={handleInputChange}
                   placeholder="Employment address"
+                  required
                 />
               </div>
             </div>

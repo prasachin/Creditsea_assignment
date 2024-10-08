@@ -13,6 +13,16 @@ const Userschema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  balance: {
+    type: Number,
+    default: 0,
+  },
+  transactions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Transaction",
+    },
+  ],
 });
 const CreditAppUser = mongoose.model("CreditAppUser", Userschema);
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEllipsisV } from "react-icons/fa";
 import "./verify.css";
+import { Dropdown } from "react-bootstrap";
 
 const Verifier = () => {
   const [loans, setLoans] = useState([]);
@@ -70,16 +71,10 @@ const Verifier = () => {
           loan._id === loanId ? { ...loan, status: newStatus } : loan
         )
       );
-      setShowDropdown(false);
       fetchLoans();
     } catch (error) {
       console.error("Error updating loan status:", error);
     }
-  };
-
-  const toggleDropdown = (loanId) => {
-    setSelectedLoan(loanId);
-    setShowDropdown((prevState) => !prevState);
   };
 
   return (
@@ -162,40 +157,43 @@ const Verifier = () => {
                     >
                       {loan.status}
                     </span>
-                    <span
-                      className="dropdown-icon"
-                      onClick={() => toggleDropdown(loan._id)}
-                    >
-                      <FaEllipsisV />
-                    </span>
-                    {showDropdown && selectedLoan === loan._id && (
-                      <div className="dropdown-menu">
-                        <button
-                          className="dropdown-item"
+                    <Dropdown align="end">
+                      <Dropdown.Toggle
+                        variant="link"
+                        id="user-dropdown-offcanvas"
+                        className="w-100 text-left"
+                        style={{
+                          textDecoration: "none",
+                          fontWeight: "bold",
+                          color: "green",
+                        }}
+                      >
+                        <FaEllipsisV />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item
                           onClick={() =>
                             handleStatusChange(loan._id, "Approved")
                           }
                         >
                           Approve
-                        </button>
-                        <button
-                          className="dropdown-item"
+                        </Dropdown.Item>
+                        <Dropdown.Item
                           onClick={() =>
                             handleStatusChange(loan._id, "Rejected")
                           }
                         >
                           Reject
-                        </button>
-                        <button
-                          className="dropdown-item"
+                        </Dropdown.Item>
+                        <Dropdown.Item
                           onClick={() =>
                             handleStatusChange(loan._id, "Pending")
                           }
                         >
-                          Pending
-                        </button>
-                      </div>
-                    )}
+                          Set to Pending
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </td>
                 </tr>
               ))
