@@ -53,7 +53,7 @@ const User = () => {
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-12 text-center">
-            <h2>Loan Details</h2>
+            <h2 style={{ color: "black", fontWeight: "bold" }}>Loan Details</h2>
             <div className="card">
               <div className="card-body">
                 <h5>Deficit</h5>
@@ -80,7 +80,9 @@ const User = () => {
 
         <div className="row mt-5">
           <div className="col-md-12">
-            <h4>Applied Loans</h4>
+            <h4 style={{ color: "black", fontWeight: "bold" }}>
+              Applied Loans
+            </h4>
             <input
               type="text"
               className="form-control mb-3"
@@ -103,7 +105,7 @@ const User = () => {
                     <tr key={loan._id}>
                       <td>
                         <img
-                          src="/path/to/officer1.jpg"
+                          src="https://img.freepik.com/premium-photo/default-male-user-icon-blank-profile-image-green-background-profile-picture-icon_962764-98399.jpg?w=826"
                           width="30"
                           className="rounded-circle mr-2"
                           alt="Loan Officer"

@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
+  const [dashboard, setdashboard] = useState("User");
 
   const handleDropdownSelect = (path) => {
     navigate(path);
-    handleClose();
+
+    if (path === "/verifier-dashboard") {
+      setdashboard("Verifier");
+    } else if (path === "/admin-dashboard") {
+      setdashboard("Admin");
+    } else if (path === "/user-dashboard") {
+      setdashboard("User");
+    }
   };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{ position: "fixed", top: 0 }}>
       <div className="navbar-brand">
         <h2 style={{ fontWeight: "bold" }}>CREDIT APP</h2>
       </div>
@@ -59,30 +67,34 @@ const Navbar = () => {
               variant="link"
               id="user-dropdown-offcanvas"
               className="w-100 text-left"
-              style={{ textDecoration: "none", fontWeight:"bold" , color:"green"}}
+              style={{
+                textDecoration: "none",
+                fontWeight: "bold",
+                color: "green",
+              }}
             >
               <i
                 className="bi bi-person"
                 style={{ textDecoration: "none", color: "green" }}
               ></i>{" "}
-              User
+              {dashboard}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item
                 onClick={() => handleDropdownSelect("/user-dashboard")}
-                style={{ textDecoration: "none", fontWeight:"bold" }}
+                style={{ textDecoration: "none", fontWeight: "bold" }}
               >
                 User
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={() => handleDropdownSelect("/verifier-dashboard")}
-                style={{ textDecoration: "none", fontWeight:"bold" }}
+                style={{ textDecoration: "none", fontWeight: "bold" }}
               >
                 Verifier
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={() => handleDropdownSelect("/admin-dashboard")}
-                style={{ textDecoration: "none", fontWeight:"bold" }}
+                style={{ textDecoration: "none", fontWeight: "bold" }}
               >
                 Admins
               </Dropdown.Item>

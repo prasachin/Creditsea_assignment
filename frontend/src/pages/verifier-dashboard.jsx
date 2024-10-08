@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
-import "./admin.css";
 import axios from "axios";
 import { FaEllipsisV } from "react-icons/fa";
 import "./verify.css";
+
 const Verifier = () => {
   const [loans, setLoans] = useState([]);
   const [selectedLoan, setSelectedLoan] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [statistics, setStatistics] = useState({
+    totalLoans: 0,
+    borrowers: 0,
+    cashDisbursed: 0,
+    savings: 0,
+    repaidLoans: 0,
+    cashReceived: 0,
+    otherAccounts: 10,
+  });
 
   useEffect(() => {
     fetchLoans();
@@ -17,10 +26,38 @@ const Verifier = () => {
       const response = await axios.get(
         "http://localhost:3003/api/applications"
       );
-      setLoans(response.data);
+      const fetchedLoans = response.data;
+      setLoans(fetchedLoans);
+      updateStatistics(fetchedLoans);
     } catch (error) {
       console.error("Error fetching loans:", error);
     }
+  };
+
+  const updateStatistics = (loans) => {
+    if (!loans) return;
+
+    const totalLoans = loans.length;
+    const borrowers = loans.filter((loan) => loan.status !== "pending").length;
+    const cashDisbursed = loans.reduce(
+      (total, loan) => total + loan.loanAmount,
+      0
+    );
+    const repaidLoans = loans.filter((loan) => loan.status === "Repaid").length;
+    const cashReceived = loans
+      .filter((loan) => loan.status === "Approved")
+      .reduce((total, loan) => total + loan.loanAmount, 0);
+    const savings = cashDisbursed - cashReceived;
+
+    setStatistics({
+      totalLoans,
+      borrowers,
+      cashDisbursed,
+      repaidLoans,
+      cashReceived,
+      savings,
+      otherAccounts: 10,
+    });
   };
 
   const handleStatusChange = async (loanId, newStatus) => {
@@ -34,6 +71,7 @@ const Verifier = () => {
         )
       );
       setShowDropdown(false);
+      fetchLoans();
     } catch (error) {
       console.error("Error updating loan status:", error);
     }
@@ -46,44 +84,44 @@ const Verifier = () => {
 
   return (
     <div className="admin-dashboard">
-      <h6>Dashboard: LOANS</h6>
+      <h6 style={{ color: "green", fontWeight: "bold" }}>Dashboard: LOANS</h6>
       <div className="dashboard-statistics">
         <span>
-          <h2>200</h2>
-          <p>Active Users</p>
+          <h2>{statistics.totalLoans}</h2>
+          <p>Loans</p>
         </span>
         <span>
-          <h2>100</h2>
+          <h2>{statistics.borrowers}</h2>
           <p>Borrowers</p>
         </span>
         <span>
-          <h2>550,000</h2>
-          <p>Cash Distributed</p>
+          <h2>{statistics.cashDisbursed}</h2>
+          <p>Cash Disbursed</p>
         </span>
         <span>
-          <h2>1,000,000</h2>
-          <p>Cash Received</p>
+          <h2>{statistics.savings}</h2>
+          <p>Savings</p>
         </span>
         <div className="statistic">
-          <h2>450,000</h2>
-          <p>Savings</p>
-        </div>
-        <div className="statistic">
-          <h2>30</h2>
+          <h2>{statistics.repaidLoans}</h2>
           <p>Repaid Loans</p>
         </div>
         <div className="statistic">
-          <h2>10</h2>
+          <h2>{statistics.cashReceived}</h2>
+          <p>Cash Received</p>
+        </div>
+        <div className="statistic">
+          <h2>{statistics.otherAccounts}</h2>
           <p>Other Accounts</p>
         </div>
         <div className="statistic">
-          <h2>50</h2>
-          <p>Loans</p>
+          <h2>{statistics.otherAccounts}</h2>
+          <p>Savivgs Accounts</p>
         </div>
       </div>
-      ;
+
       <div className="recent-loans table-responsive mt-5">
-        <h2>Applied Loans</h2>
+        <h2 style={{ color: "black", fontWeight: "bold" }}>Applied Loans</h2>
         <table className="table table-hover">
           <thead>
             <tr>
@@ -99,9 +137,7 @@ const Verifier = () => {
                 <tr key={loan._id}>
                   <td>
                     <img
-                      src={
-                        "https://img.freepik.com/premium-photo/default-male-user-icon-blank-profile-image-green-background-profile-picture-icon_962764-98399.jpg?w=826"
-                      }
+                      src="https://img.freepik.com/premium-photo/default-male-user-icon-blank-profile-image-green-background-profile-picture-icon_962764-98399.jpg?w=826"
                       alt="User"
                       className="rounded-circle"
                       width="30"
@@ -119,6 +155,8 @@ const Verifier = () => {
                       className={`badge ${
                         loan.status === "Approved"
                           ? "badge-success"
+                          : loan.status === "Rejected"
+                          ? "badge-danger"
                           : "badge-warning"
                       }`}
                     >
