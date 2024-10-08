@@ -24,9 +24,7 @@ const Admin = () => {
 
   const fetchLoans = async () => {
     try {
-      const loanResponse = await axios.get(
-        "/api/applications"
-      );
+      const loanResponse = await axios.get("/api/applications");
       const fetchedLoans = loanResponse.data;
       setLoans(fetchedLoans);
       const fetchedUsers = await fetchUsers();
@@ -94,34 +92,42 @@ const Admin = () => {
       <h6 style={{ color: "black", fontWeight: "bold" }}>DASHBOARD</h6>
       <div className="dashboard-statistics">
         <span>
+          <i class="fas fa-users fa-2x"></i>
           <h2>{statistics.activeUsers}</h2>
           <p>Active Users</p>
         </span>
         <span>
+          <i class="bi bi-person-dash-fill fa-2x"></i>
           <h2>{statistics.borrowers}</h2>
           <p>Borrowers</p>
         </span>
         <span>
+          <i class="bi bi-cash-stack fa-2x"></i>
           <h2>{statistics.cashDisbursed}</h2>
           <p>Cash Disbursed</p>
         </span>
         <span>
+          <i class="bi bi-currency-rupee fa-2x"></i>
           <h2>{statistics.cashReceived}</h2>
           <p>Cash Received</p>
         </span>
         <div className="statistic">
+          <i class="bi bi-piggy-bank-fill fa-2x"></i>
           <h2>{statistics.savings}</h2>
           <p>Savings</p>
         </div>
         <div className="statistic">
+          <i class="bi bi-person-check-fill fa-2x"></i>
           <h2>{statistics.repaidLoans}</h2>
           <p>Repaid Loans</p>
         </div>
         <div className="statistic">
+          <i class="bi bi-bank2 fa-2x"></i>
           <h2>{statistics.otherAccounts}</h2>
           <p>Other Accounts</p>
         </div>
         <div className="statistic">
+          <i class="bi bi-wallet-fill fa-2x"></i>
           <h2>{statistics.totalLoans}</h2>
           <p>Loans</p>
         </div>
@@ -144,7 +150,7 @@ const Admin = () => {
                 <tr key={loan._id}>
                   <td>
                     <img
-                      src="https://img.freepik.com/premium-photo/default-male-user-icon-blank-profile-image-green-background-profile-picture-icon_962764-98399.jpg?w=826"
+                      src="\smiling-man-Circle.jpg"
                       alt="User"
                       className="rounded-circle"
                       width="30"

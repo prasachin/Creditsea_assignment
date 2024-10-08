@@ -14,7 +14,8 @@
   flex-direction: column;
   align-items: center;
   width: 20%;
-  background-color: #f1f1f1;
+  color: white;
+  background-color: rgb(1, 54, 1);
   padding: 20px;
   margin: 10px;
   border-radius: 8px;
@@ -23,7 +24,8 @@
 
 .statistic {
   width: 20%;
-  background-color: #e1e1e1;
+  background-color: rgb(1, 54, 1);
+  color: white;
   padding: 20px;
   margin: 10px;
   border-radius: 8px;

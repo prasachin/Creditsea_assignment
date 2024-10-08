@@ -20,9 +20,7 @@ const User = () => {
 
   const fetchAppliedLoans = async () => {
     try {
-      const response = await axios.get(
-        "/api/applications"
-      );
+      const response = await axios.get("/api/applications");
       setLoans(response.data);
       setFilteredLoans(response.data);
     } catch (error) {
@@ -129,7 +127,7 @@ const User = () => {
                     <tr key={loan._id}>
                       <td>
                         <img
-                          src="https://img.freepik.com/premium-photo/default-male-user-icon-blank-profile-image-green-background-profile-picture-icon_962764-98399.jpg?w=826"
+                          src="https://res.cloudinary.com/dbduadsbd/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1709183359/samples/people/smiling-man.jpg"
                           width="30"
                           className="rounded-circle mr-2"
                           alt="Loan Officer"
