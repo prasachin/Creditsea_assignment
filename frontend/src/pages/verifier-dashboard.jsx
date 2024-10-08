@@ -25,7 +25,7 @@ const Verifier = () => {
   const fetchLoans = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3003/api/applications"
+        "/api/applications"
       );
       const fetchedLoans = response.data;
       setLoans(fetchedLoans);
@@ -63,7 +63,7 @@ const Verifier = () => {
 
   const handleStatusChange = async (loanId, newStatus) => {
     try {
-      await axios.put(`http://localhost:3003/api/applications/${loanId}`, {
+      await axios.put(`/api/applications/${loanId}`, {
         status: newStatus,
       });
       setLoans((prevLoans) =>

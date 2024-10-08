@@ -47,7 +47,7 @@ const Loanform = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3003/api/applications/apply",
+        "/api/applications/apply",
         applicationData,
         {
           headers: {

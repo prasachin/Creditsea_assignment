@@ -25,7 +25,7 @@ const Admin = () => {
   const fetchLoans = async () => {
     try {
       const loanResponse = await axios.get(
-        "http://localhost:3003/api/applications"
+        "/api/applications"
       );
       const fetchedLoans = loanResponse.data;
       setLoans(fetchedLoans);
@@ -38,7 +38,7 @@ const Admin = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3003/api/users");
+      const response = await axios.get("/api/users");
       setUsers(response.data);
       return response.data;
     } catch (error) {
@@ -75,7 +75,7 @@ const Admin = () => {
 
   const handleStatusChange = async (loanId, newStatus) => {
     try {
-      await axios.put(`http://localhost:3003/api/applications/${loanId}`, {
+      await axios.put(`/api/applications/${loanId}`, {
         status: newStatus,
       });
       setLoans((prevLoans) =>

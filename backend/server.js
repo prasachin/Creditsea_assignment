@@ -6,7 +6,18 @@ const loginRouter = require("./controllers/Login");
 const loanrouter = require("./controllers/Loandetails");
 const router = require("./controllers/transactionroute");
 const depositrouter = require("./controllers/Depositrouter");
+const helmet = require("helmet");
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "http://localhost:3003"],
+    },
+  })
+);
+app.use(express.static("dist"));
 const cors = require("cors");
 app.use(cors());
 

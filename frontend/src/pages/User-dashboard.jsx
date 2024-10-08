@@ -21,7 +21,7 @@ const User = () => {
   const fetchAppliedLoans = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3003/api/applications"
+        "/api/applications"
       );
       setLoans(response.data);
       setFilteredLoans(response.data);

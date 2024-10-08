@@ -23,7 +23,7 @@ const Transactions = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:3003/api/transactions/${userId}`
+          `/api/transactions/${userId}`
         );
         setTransactions(response.data.transactions);
       } catch (err) {

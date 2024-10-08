@@ -33,7 +33,7 @@ const Deposit = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3003/api/deposit", {
+      const response = await axios.post("/api/deposit", {
         userId: userId,
         depositAmount: parseFloat(depositAmount),
       });
