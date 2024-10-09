@@ -127,7 +127,7 @@ const User = () => {
                     <tr key={loan._id}>
                       <td>
                         <img
-                          src="https://res.cloudinary.com/dbduadsbd/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1709183359/samples/people/smiling-man.jpg"
+                          src="\smiling-man-Circle.jpg"
                           width="30"
                           className="rounded-circle mr-2"
                           alt="Loan Officer"

@@ -93,6 +93,7 @@ const Verifier = () => {
           <p>Cash Disbursed</p>
         </span>
         <span>
+        <i class="bi bi-piggy-bank-fill fa-2x"></i>
           <h2>{statistics.savings}</h2>
           <p>Savings</p>
         </span>
